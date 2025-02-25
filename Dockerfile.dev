@@ -1,5 +1,5 @@
-FROM openjdk:17-alpine
+FROM ubuntu:latest
 COPY . /root/
-RUN apk update
-RUN apk add git
+RUN apt-get update
+RUN apt install -y  openjdk-17-jdk openjdk-17-jre git
 CMD ["tail", "-f", "/dev/null"]
