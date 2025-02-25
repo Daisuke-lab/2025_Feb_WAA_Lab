@@ -1,0 +1,5 @@
+FROM openjdk:17-alpine
+COPY . /root/
+RUN apk update
+RUN apk add git
+CMD ["tail", "-f", "/dev/null"]
