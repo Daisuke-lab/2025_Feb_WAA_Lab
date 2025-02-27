@@ -19,7 +19,7 @@ public class PostController {
     }
 
     @GetMapping(path="{id}")
-    public Post get(@PathVariable int id) {
+    public Post get(@PathVariable Long id) {
         return postService.get(id);
     }
 
@@ -30,12 +30,12 @@ public class PostController {
     
 
     @PutMapping(path="{id}")
-    public void put(@PathVariable int id, @RequestBody Post post) {
+    public void put(@PathVariable Long id, @RequestBody Post post) {
         postService.update(id, post);
     }
 
     @DeleteMapping(path="{id}")
-    public void delete(@PathVariable int id) {
+    public void delete(@PathVariable Long id) {
         postService.delete(id);
     }
 

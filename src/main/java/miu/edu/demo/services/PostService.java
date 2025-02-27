@@ -12,22 +12,23 @@ public class PostService {
     PostRepository postRepository;
 
     public void add(Post post) {
-        postRepository.add(post);
+        postRepository.save(post);
     }
 
     public List<Post> get() {
-        return postRepository.get();
+        return postRepository.findAll();
     }
-    public Post get(int id) {
-        return postRepository.get(id);
-    }
-
-    public void update(int id, Post post) {
-        postRepository.update(id, post);
+    public Post get(Long id) {
+        return postRepository.findById(id).orElse(null);
     }
 
-    public void delete(int id) {
-        postRepository.delete(id);
+    public void update(Long id, Post post) {
+        post.setId(id);
+        postRepository.save(post);
+    }
+
+    public void delete(Long id) {
+        postRepository.deleteById(id);
     }
 
 }
