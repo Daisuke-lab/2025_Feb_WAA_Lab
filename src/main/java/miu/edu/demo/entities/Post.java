@@ -1,10 +1,12 @@
 package miu.edu.demo.entities;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.querydsl.core.annotations.QueryEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-
+import java.util.List;
 
 
 
@@ -13,7 +15,7 @@ import lombok.Setter;
 @RequiredArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table
+@QueryEntity
 public class Post {
 
     @Id
@@ -22,8 +24,13 @@ public class Post {
     String title;
     String content;
     String author;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
     @JoinColumn(name="post_user_id", nullable=false)
     User user;
+
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.REMOVE, orphanRemoval = true, mappedBy = "post")
+    List<Comment> comments;
 
 }

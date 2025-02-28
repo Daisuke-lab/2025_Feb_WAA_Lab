@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
+
 @RestController
 @RequestMapping("posts")
 public class PostController {
@@ -14,8 +16,8 @@ public class PostController {
     PostService postService;
 
     @GetMapping
-    public List<Post> get() {
-        return postService.get();
+    public List<Post> get(@RequestParam(required = false) Map<String,String> allRequestParams) {
+        return postService.get(allRequestParams);
     }
 
     @GetMapping(path="{id}")

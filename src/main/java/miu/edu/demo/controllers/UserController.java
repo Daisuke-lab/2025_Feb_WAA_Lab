@@ -5,7 +5,7 @@ import miu.edu.demo.entities.User;
 import miu.edu.demo.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
+import java.util.Map;
 import java.util.List;
 
 @RestController
@@ -16,8 +16,8 @@ public class UserController {
     UserService userService;
 
     @GetMapping
-    public List<User> get() {
-        return userService.get();
+    public List<User> get(@RequestParam(required = false) Map<String,String> allRequestParams) {
+        return userService.get(allRequestParams);
     }
 
     @GetMapping(path="{id}")
