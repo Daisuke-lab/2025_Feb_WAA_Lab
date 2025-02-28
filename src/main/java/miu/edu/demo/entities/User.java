@@ -14,18 +14,25 @@ import jakarta.persistence.*;
 @Setter
 @RequiredArgsConstructor
 @AllArgsConstructor
+@QueryEntity
 @Entity
 @Table(name = "PostUser")
-@QueryEntity
 public class User {
+
+    @JoinColumn(name = "user_id")
+    @OneToMany(cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
+    List<Post> posts;
+
+
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     long id;
     String name;
-    @JsonIgnore
-    @OneToMany(cascade = CascadeType.REMOVE, orphanRemoval = true, mappedBy = "user", fetch = FetchType.LAZY)
-    List<Post> posts;
+
+
+
+
 
 }
 

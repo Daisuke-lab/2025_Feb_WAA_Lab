@@ -14,8 +14,8 @@ import java.util.List;
 @Setter
 @RequiredArgsConstructor
 @AllArgsConstructor
-@Entity
 @QueryEntity
+@Entity
 public class Post {
 
     @Id
@@ -24,10 +24,7 @@ public class Post {
     String title;
     String content;
     String author;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIgnore
-    @JoinColumn(name="post_user_id", nullable=false)
-    User user;
+
 
     @JsonIgnore
     @OneToMany(cascade = CascadeType.REMOVE, orphanRemoval = true, mappedBy = "post")
