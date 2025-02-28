@@ -1,6 +1,7 @@
 package miu.edu.demo.controllers;
 
 
+import miu.edu.demo.entities.Post;
 import miu.edu.demo.entities.User;
 import miu.edu.demo.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,11 @@ public class UserController {
     @GetMapping(path="{id}")
     public User get(@PathVariable Long id) {
         return userService.get(id);
+    }
+
+    @GetMapping(path="{id}/posts")
+    public List<Post> getPosts(@PathVariable("id") Long id) {
+        return userService.getPosts(id);
     }
 
     @PostMapping(path="{id}")

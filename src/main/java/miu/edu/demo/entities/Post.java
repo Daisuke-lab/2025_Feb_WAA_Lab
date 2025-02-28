@@ -18,6 +18,10 @@ import java.util.List;
 @Entity
 public class Post {
 
+    //@ManyToOne(fetch = FetchType.LAZY)
+    //@JoinColumn(name="user_id", nullable=false)
+    //User user;
+
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     long id;
@@ -26,8 +30,8 @@ public class Post {
     String author;
 
 
-    @JsonIgnore
-    @OneToMany(cascade = CascadeType.REMOVE, orphanRemoval = true, mappedBy = "post")
-    List<Comment> comments;
+//    @JsonIgnore
+//    @OneToMany(cascade = CascadeType.REMOVE, orphanRemoval = true, mappedBy = "post")
+//    List<Comment> comments;
 
 }

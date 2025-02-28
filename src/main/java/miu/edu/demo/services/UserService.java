@@ -10,7 +10,9 @@ import miu.edu.demo.utils.ParamsConverter;
 import miu.edu.demo.utils.PredicatesBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -38,6 +40,12 @@ public class UserService {
     }
     public User get(Long id) {
         return userRepository.findById(id).orElse(null);
+    }
+
+    @Transactional
+    public List<Post> getPosts(Long id) {
+        User user = userRepository.findById(id).orElse(null);
+        return user == null ? new ArrayList<>() : user.getPosts();
     }
 
     public void update(int id, User user) {
