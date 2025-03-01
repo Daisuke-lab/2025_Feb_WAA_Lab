@@ -31,6 +31,7 @@ public class UserController {
         return userService.getPosts(id);
     }
 
+
     @PostMapping(path="{id}")
     public void user(@RequestBody User user) {
         userService.add(user);

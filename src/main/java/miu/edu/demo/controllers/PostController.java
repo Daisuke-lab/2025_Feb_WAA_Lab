@@ -25,7 +25,7 @@ public class PostController {
         return postService.get(id);
     }
 
-    @PostMapping(path="{id}")
+    @PostMapping()
     public void post(@RequestBody Post post) {
         postService.add(post);
     }

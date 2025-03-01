@@ -19,8 +19,6 @@ public class PredicatesBuilder {
     private String variable;
     private BooleanExpression initialExp;
 
-    private static String DUMMY1 = "DUMMY1";
-    private static String DUMMY2 = "DUMMY2";
 
     public PredicatesBuilder(Class<? extends Object> entity, String variable) {
         params = new ArrayList<>();

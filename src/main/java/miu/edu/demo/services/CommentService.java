@@ -24,6 +24,7 @@ public class CommentService {
 
     public void update(Long id, Comment comment) {
         comment.setId(id);
+        //commentRepository
         commentRepository.save(comment);
     }
 
