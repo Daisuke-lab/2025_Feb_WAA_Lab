@@ -30,8 +30,8 @@ public class Post {
     String author;
 
 
-//    @JsonIgnore
-//    @OneToMany(cascade = CascadeType.REMOVE, orphanRemoval = true, mappedBy = "post")
-//    List<Comment> comments;
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.REMOVE, orphanRemoval = true, mappedBy = "post")
+    List<Comment> comments;
 
 }
