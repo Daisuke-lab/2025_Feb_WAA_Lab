@@ -1,6 +1,7 @@
 package miu.edu.demo.controllers;
 
 
+import miu.edu.demo.aspects.ExecutionTime;
 import miu.edu.demo.entities.Post;
 import miu.edu.demo.entities.User;
 import miu.edu.demo.services.UserService;
@@ -21,6 +22,7 @@ public class UserController {
         return userService.get(allRequestParams);
     }
 
+    @ExecutionTime
     @GetMapping(path="{id}")
     public User get(@PathVariable Long id) {
         return userService.get(id);
