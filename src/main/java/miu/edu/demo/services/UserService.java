@@ -11,13 +11,17 @@ import miu.edu.demo.utils.ParamsConverter;
 
 import miu.edu.demo.utils.PredicatesBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.TransactionManager;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.data.jpa.domain.Specification;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 
 
 @Service
@@ -26,9 +30,19 @@ public class UserService {
     @Autowired
     UserRepository userRepository;
 
+
+    @Transactional
     public void add(User user) {
-        userRepository.save(user);
+        try {
+            userRepository.save(user);
+            TimeUnit.MINUTES.sleep(1);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
+
+
 
     public List<User> get() {
         return userRepository.findAll();
@@ -57,7 +71,7 @@ public class UserService {
         return userRepository.findById(id).orElse(null);
     }
 
-    @Transactional
+    //@Transactional
     public List<Post> getPosts(Long id) {
         Optional<User> user = userRepository.findById(id);
         List<Post> posts = user.map(User::getPosts).orElseGet(ArrayList::new);

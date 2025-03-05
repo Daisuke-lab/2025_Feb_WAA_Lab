@@ -34,7 +34,7 @@ public class UserController {
     }
 
 
-    @PostMapping(path="{id}")
+    @PostMapping
     public void user(@RequestBody User user) {
         userService.add(user);
     }

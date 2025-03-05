@@ -18,4 +18,5 @@ public interface UserRepository  extends JpaRepository<User, Long> ,
 
     @Query(value = "select u1_0.id,u1_0.name from post_user u1_0 left join post p1_0 on u1_0.id=p1_0.post_user_id group by u1_0.id having count(p1_0.id)>= :postCount", nativeQuery = true)
     List<User> findUsersWithPost(@Param("postCount") Integer postCount);
+
 }
