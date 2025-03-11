@@ -6,6 +6,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import java.util.List;
 
 
@@ -29,8 +32,9 @@ public class Post {
     String author;
 
 
-    @JsonIgnore
-    @OneToMany(cascade = CascadeType.REMOVE, orphanRemoval = true, mappedBy = "post")
+    //@JsonIgnore
+    @OneToMany(cascade = CascadeType.REMOVE, orphanRemoval = true, mappedBy = "post", fetch = FetchType.EAGER)
+    @Fetch(FetchMode.JOIN)
     List<Comment> comments;
 
 }

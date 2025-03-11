@@ -1,4 +1,14 @@
+import CommentType from "../types/CommentType"
 
-export default function Comment() {
-    return (<></>)
+interface Props {
+    comment: CommentType
+}
+
+export default function Comment({id, name}:CommentType) {
+    return (
+        <div>
+            <p>id: {id}</p>
+            <p>name: {name}</p>
+        </div>
+    )
 }

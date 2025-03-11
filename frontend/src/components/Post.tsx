@@ -1,12 +1,17 @@
 import PostType from "../types/PostType"
-
-function Post({id, title, author}:PostType) {
+import Comment from "./Comment"
+function Post({id, title, author, comments}:PostType) {
    
     return (
         <div>
-        <p>id: {id}</p>
-        <p>title: {title}</p>
-        <p>author: {author}</p>
+            <div>
+            <p>id: {id}</p>
+            <p>title: {title}</p>
+            <p>author: {author}</p>
+            </div>
+            <div>
+                {comments.map(comment => <Comment {...comment} key={comment.id} />)}
+            </div>
         </div>
     )
 }

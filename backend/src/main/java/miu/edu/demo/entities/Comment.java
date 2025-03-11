@@ -1,4 +1,6 @@
 package miu.edu.demo.entities;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.querydsl.core.annotations.QueryEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -22,6 +24,7 @@ public class Comment {
     long id;
     String name;
 
+    @JsonIgnore
     @ManyToOne
     Post post;
 
