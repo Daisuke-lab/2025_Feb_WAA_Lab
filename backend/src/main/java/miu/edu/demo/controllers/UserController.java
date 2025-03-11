@@ -4,6 +4,7 @@ package miu.edu.demo.controllers;
 import miu.edu.demo.aspects.ExecutionTime;
 import miu.edu.demo.entities.Post;
 import miu.edu.demo.entities.User;
+import miu.edu.demo.repositories.UserRepository;
 import miu.edu.demo.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -17,9 +18,21 @@ public class UserController {
     @Autowired
     UserService userService;
 
+    @Autowired
+    UserRepository userRepository;
+
     @GetMapping
     public List<User> get(@RequestParam(required = false) Map<String,String> allRequestParams) {
         return userService.get(allRequestParams);
+    }
+
+    @GetMapping(path ="test")
+    public List<Post> test() {
+        System.out.println("you are here");
+        List<Post> users = userRepository.findUsersWTest();
+        System.out.println("USERS:");
+        System.out.println(users);
+        return users;
     }
 
     @ExecutionTime

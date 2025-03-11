@@ -18,9 +18,8 @@ import java.util.List;
 @Entity
 public class Post {
 
-    //@ManyToOne(fetch = FetchType.LAZY)
-    //@JoinColumn(name="user_id", nullable=false)
-    //User user;
+    @ManyToOne(fetch = FetchType.LAZY)
+    User user;
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)

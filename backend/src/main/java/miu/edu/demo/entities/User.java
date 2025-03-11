@@ -13,6 +13,7 @@ import jakarta.persistence.*;
 import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+import org.springframework.lang.Nullable;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -27,8 +28,8 @@ public class User {
 
 
 
-    @OneToOne(mappedBy = "user")
-    Address address;
+//    @OneToOne(mappedBy = "user")
+//    Address address;
 
 
 
@@ -38,6 +39,9 @@ public class User {
     @BatchSize(size = 100)
     @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
     List<Post> posts;
+
+//    @Column(nullable = true)
+//    float gpa;
 
 
 

@@ -1,5 +1,0 @@
-{
-    "name": "WAA",
-    "dockerFile": "Dockerfile.dev",
-    "forwardPorts": [8080]
-}

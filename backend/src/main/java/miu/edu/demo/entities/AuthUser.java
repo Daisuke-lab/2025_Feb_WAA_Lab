@@ -12,13 +12,16 @@ import java.util.List;
 @AllArgsConstructor
 @Data
 @Entity
-public class UserDetailsModel implements UserDetails
+public class AuthUser implements UserDetails
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
     String username;
     String password;
+
+    @OneToOne(mappedBy = "auth_user")
+    User user;
 
     @ManyToMany(fetch = FetchType.EAGER)
     List<Authority> authorities;
