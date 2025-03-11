@@ -3,6 +3,8 @@ package miu.edu.demo.utils;
 
 import io.jsonwebtoken.*;
 import jakarta.servlet.http.HttpServletRequest;
+import miu.edu.demo.entities.AuthUser;
+import miu.edu.demo.services.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -10,7 +12,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 
@@ -21,8 +22,6 @@ import java.util.stream.Collectors;
 @Component
 public class JWTUtil {
 
-    @Autowired
-    UserDetailsService userDetailsService;
     private final String secret = "top-secret";
     private final long expiration = 5 * 60 * 60 * 60;
     //     private final long expiration = 5;
@@ -38,7 +37,7 @@ public class JWTUtil {
         return claimsResolver.apply(claims);
     }
 
-    private Claims getAllClaimsFromToken(String token) {
+    public Claims getAllClaimsFromToken(String token) {
         return Jwts.parser()
                 .setSigningKey(secret)
                 .parseClaimsJws(token)
@@ -58,23 +57,15 @@ public class JWTUtil {
         return expiration.before(new Date());
     }
 
-//    public String generateToken(UserDetails userDetails) {
-//        Map<String, Object> claims = new HashMap<>();
-//        claims.put("roles",userDetails.getAuthorities());
-//
-//        return doGenerateToken(claims, userDetails.getUsername());
-//    }
+    public String generateToken(AuthUser authUser) {
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("roles",authUser.getAuthorities());
+
+        return doGenerateToken(claims, authUser.getUsername());
+    }
 
 
-//    private String doGenerateToken(Map<String, Object> claims, String subject) {
-//        return Jwts.builder()
-//                .setClaims(claims)
-//                .setSubject(subject)
-//                .setIssuedAt(new Date())
-//                .setExpiration(new Date(System.currentTimeMillis() + expiration))
-//                .signWith(SignatureAlgorithm.HS512, secret)
-//                .compact();
-//    }
+
 
     // Overridden to accommodate the refresh token
     public String doGenerateToken(String subject) {
@@ -86,14 +77,14 @@ public class JWTUtil {
                 .compact();
     }
 
-//    public String generateRefreshToken(String email) {
-//        return Jwts.builder()
-//                .setSubject(email)
-//                .setIssuedAt(new Date())
-//                .setExpiration(new Date(System.currentTimeMillis() + refreshExpiration))
-//                .signWith(SignatureAlgorithm.HS512, secret)
-//                .compact();
-//    }
+    public String generateRefreshToken(String email) {
+        return Jwts.builder()
+                .setSubject(email)
+                .setIssuedAt(new Date())
+                .setExpiration(new Date(System.currentTimeMillis() + refreshExpiration))
+                .signWith(SignatureAlgorithm.HS512, secret)
+                .compact();
+    }
 
     public String getSubject(String token) {
         return Jwts.parser()
@@ -103,11 +94,6 @@ public class JWTUtil {
                 .getSubject();
     }
 
-    public String generateRefreshToken(String subject) {
-        Map<String, Object> claims = new HashMap<>();
-        claims.put("type", "refresh"); // Add a "type" claim
-        return doGenerateToken(claims, subject);
-    }
 
     public boolean isRefreshToken(String token){
         try{
@@ -118,10 +104,10 @@ public class JWTUtil {
         }
     }
 
-    public String generateToken(UserDetails userDetails) {
+    public String generateToken(UserDetails authUser) {
         Map<String, Object> claims = new HashMap<>();
         claims.put("type", "access"); // Add a "type" claim
-        return doGenerateToken(claims, userDetails.getUsername());
+        return doGenerateToken(claims, authUser.getUsername());
     }
 
     public boolean isAccessToken(String token){
@@ -162,15 +148,7 @@ public class JWTUtil {
         return false;
     }
 
-    public Authentication getAuthentication(String token) {
-        if (!isAccessToken(token)) {
-            return null; // or throw an exception indicating invalid token type
-        }
-        Claims claims = getAllClaimsFromToken(token);
-        UserDetails userDetails = userDetailsService.loadUserByUsername(claims.getSubject());
-        return new UsernamePasswordAuthenticationToken(
-                userDetails, null, userDetails.getAuthorities());
-    }
+
 
 
     public String doGenerateRefreshToken(Map<String, Object> claims, String subject) {

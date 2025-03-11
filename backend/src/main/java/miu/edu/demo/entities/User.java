@@ -28,8 +28,8 @@ public class User {
 
 
 
-//    @OneToOne(mappedBy = "user")
-//    Address address;
+    @OneToOne(optional=true)
+    AuthUser authUser;
 
 
 

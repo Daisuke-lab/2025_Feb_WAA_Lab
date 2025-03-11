@@ -8,4 +8,5 @@ import miu.edu.demo.entities.Comment;
 
 @Repository
 public interface AuthorityRepository extends JpaRepository<Authority, Long> {
+
 }

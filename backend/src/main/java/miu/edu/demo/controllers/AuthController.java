@@ -1,5 +1,8 @@
 package miu.edu.demo.controllers;
 
+import miu.edu.demo.entities.AuthUser;
+import miu.edu.demo.entities.LoginResponse;
+import miu.edu.demo.entities.RefreshToken;
 import miu.edu.demo.services.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,14 +21,14 @@ public class AuthController {
 
 
     @PostMapping(path = "login")
-    public ResponseEntity<?> login(@RequestBody AuthUser loginRequest) {
-        var loginResponse = authService.login(loginRequest);
+    public ResponseEntity<?> login(@RequestBody AuthUser authUser) {
+        var loginResponse = authService.login(authUser);
         return new ResponseEntity<LoginResponse>(
                 loginResponse, HttpStatus.OK);
     }
 
     @PostMapping("/refreshToken")
-    public LoginResponse refreshToken(@RequestBody RefreshTokenRequest refreshTokenRequest) {
-        return authService.refreshToken(refreshTokenRequest);
+    public LoginResponse refreshToken(@RequestBody RefreshToken refreshToken) {
+        return authService.refreshToken(refreshToken);
     }
 }

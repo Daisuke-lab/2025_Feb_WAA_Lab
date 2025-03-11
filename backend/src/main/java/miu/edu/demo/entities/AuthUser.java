@@ -20,7 +20,7 @@ public class AuthUser implements UserDetails
     String username;
     String password;
 
-    @OneToOne(mappedBy = "auth_user")
+    @OneToOne(mappedBy = "authUser", optional=true)
     User user;
 
     @ManyToMany(fetch = FetchType.EAGER)
