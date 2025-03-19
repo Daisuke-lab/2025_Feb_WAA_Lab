@@ -3,6 +3,7 @@ import { Button, TextField } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import { NewPostType } from '../types/PostType';
 import axios from 'axios';
+import { useEffect } from 'react';
 
 
 
